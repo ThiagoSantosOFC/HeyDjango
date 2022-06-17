@@ -12,4 +12,41 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
+
 import { WithStyles } from '@material-ui/core/styles/withStyles';
+
+class App extends Component {
+
+  state = {
+    isLoggedIn: false,
+    messages: [],
+    Value: '',
+    name: '',
+    room: 'HeyDjango',
+
+  }
+
+  client = new W3CWebSocket('ws://localhost:8000/ws/chat/'+ this.state.room + '/');
+
+  componentDidMount() {
+    this.client.onopen = () => {
+      console.log('WebSocket Client Connected');
+    };
+
+    this.client.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      console.log(data);
+      this.setState({ messages: [...this.state.messages, data] });
+    };
+  }
+
+
+  render() {
+  <Container component="main" maxWidth="xs">
+     { this.state.isLoggedIn ? : }
+  </Container>
+
+  }
+
+}
+export default (App)
